@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+
+// Páginas
+import Inicio from './components/pages/Inicio';
+import IniciarSesion from './components/pages/IniciarSesion';
+import VerificacionIdentidad from './components/pages/VerificacionIdentidad';
+import BoletaElectronica from './components/pages/BoletaElectronica';
+import ConfirmacionVoto from './components/pages/ConfirmacionVoto';
+import YaVoto from './components/pages/YaVoto';
+import PanelAdministrador from './components/pages/PanelAdministrador';
+import GestionElecciones from './components/pages/GestionElecciones';
+import ResultadosTiempoReal from './components/pages/ResultadosTiempoReal';
+import AuditoriaSistema from './components/pages/AuditoriaSistema';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Header />
+      <main style={{ padding: '2rem' }}>
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/login" element={<IniciarSesion />} />
+          <Route path="/verificacion" element={<VerificacionIdentidad />} />
+          <Route path="/boleta" element={<BoletaElectronica />} />
+          <Route path="/confirmacion" element={<ConfirmacionVoto />} />
+          <Route path="/ya-voto" element={<YaVoto />} />
+          <Route path="/admin" element={<PanelAdministrador />} />
+          <Route path="/admin/elecciones" element={<GestionElecciones />} />
+          <Route path="/admin/resultados" element={<ResultadosTiempoReal />} />
+          <Route path="/admin/auditoria" element={<AuditoriaSistema />} />
+        </Routes>
+      </main>
+      <Footer />
+    </Router>
+  );
 }
 
-export default App
+export default App;
