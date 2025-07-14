@@ -14,7 +14,6 @@ const IniciarSesion = () => {
     e.preventDefault();
     if (bloqueado) return;
 
-    // Simulación de autenticación
     if (usuario === 'votante1' && password === '123456') {
       navigate('/verificacion');
     } else {
@@ -29,25 +28,29 @@ const IniciarSesion = () => {
   };
 
   return (
-    <div>
-      <h2>Iniciar Sesión</h2>
+    <div className="page-container">
+      <h2 className="page-title">Iniciar Sesión</h2>
       {error && <Alerta mensaje={error} />}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-box">
         <input
           type="text"
           placeholder="Usuario"
           value={usuario}
           onChange={(e) => setUsuario(e.target.value)}
           required
-        /><br />
+          className="input-field"
+        />
         <input
           type="password"
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-        /><br />
-        <button type="submit" disabled={bloqueado}>Ingresar</button>
+          className="input-field"
+        />
+        <button type="submit" className="primary-button" disabled={bloqueado}>
+          Ingresar
+        </button>
       </form>
     </div>
   );

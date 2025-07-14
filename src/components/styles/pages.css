@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+  --primary: #2563eb;
+  --secondary: #f3f4f6;
+  --background: #f9fafb;
+  --success: #10b981;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  margin: 0;
+  color: var(--text-dark);
+}
+
+.page-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.success {
+  color: var(--success);
+}
+
+.fade-text {
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.card-grid {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  width: 260px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.primary-button {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+  background-color: #1d4ed8;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.input-field {
+  padding: 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+.vote-section {
+  margin-bottom: 1.5rem;
+}
+
+.radio-option {
+  display: block;
+  margin: 0.3rem 0;
+}
+
+.selection-summary {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.selection-summary li {
+  padding: 0.5rem;
+  background-color: var(--secondary);
+  margin: 0.3rem 0;
+  border-radius: var(--radius);
+}
