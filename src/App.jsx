@@ -14,6 +14,8 @@ import GestionElecciones from './components/pages/GestionElecciones';
 import ResultadosTiempoReal from './components/pages/ResultadosTiempoReal';
 import AuditoriaSistema from './components/pages/AuditoriaSistema';
 import Registro from './components/pages/Registro';
+import CrearEleccion from './components/pages/CrearEleccion';
+import EditarEleccion from './components/pages/EditarEleccion';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/ya-voto" element={<YaVoto />} />
           <Route path="/admin" element={<PanelAdministrador />} />
           <Route path="/admin/elecciones" element={<GestionElecciones />} />
+          <Route path="/admin/elecciones/crear" element={<CrearEleccion />} />
+          <Route path="/admin/elecciones/editar/:id" element={<EditarEleccion />} />
           <Route path="/admin/resultados" element={<ResultadosTiempoReal />} />
           <Route path="/admin/auditoria" element={<AuditoriaSistema />} />
         </Routes>
