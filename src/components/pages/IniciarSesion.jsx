@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Alerta from '../alerts/Alerta';
 
 const IniciarSesion = () => {
@@ -10,22 +10,33 @@ const IniciarSesion = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (bloqueado) return;
+  //datos pa probar
+  const usuariosMock = [
+    { usuario: 'PaolaMP', password: '12345678' },
+    { usuario: 'admin1', password: 'adminpass' },
+  ];
 
-    if (usuario === 'votante1' && password === '123456') {
-      navigate('/verificacion');
-    } else {
-      const nuevosIntentos = intentos + 1;
-      setIntentos(nuevosIntentos);
-      setError('Credenciales incorrectas');
-      if (nuevosIntentos >= 3) {
-        setBloqueado(true);
-        setError('Cuenta bloqueada por demasiados intentos.');
-      }
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (bloqueado) return;
+
+  const usuarioValido = usuariosMock.find(
+    (u) => u.usuario === usuario && u.password === password
+  );
+
+  if (usuarioValido) {
+    navigate('/admin'); 
+  } else {
+    const nuevosIntentos = intentos + 1;
+    setIntentos(nuevosIntentos);
+    setError('Credenciales incorrectas');
+    if (nuevosIntentos >= 3) {
+      setBloqueado(true);
+      setError('Cuenta bloqueada por demasiados intentos.');
     }
-  };
+  }
+};
+
 
   return (
     <div className="page-container">
@@ -51,6 +62,9 @@ const IniciarSesion = () => {
         <button type="submit" className="primary-button" disabled={bloqueado}>
           Ingresar
         </button>
+        <p style={{ textAlign: 'center', marginTop: '1rem' }}>
+          ¿No tienes cuenta? <Link to="/registro">Regístrate aquí</Link>
+        </p>
       </form>
     </div>
   );

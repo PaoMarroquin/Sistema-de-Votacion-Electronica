@@ -42,7 +42,7 @@ body {
 .card-grid {
   display: flex;
   gap: 1.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
 }
 
@@ -85,6 +85,20 @@ body {
   background-color: white;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+.form-box p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.form-box a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form-box a:hover {
+  text-decoration: underline;
 }
 
 .input-field {

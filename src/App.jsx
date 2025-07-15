@@ -13,6 +13,7 @@ import PanelAdministrador from './components/pages/PanelAdministrador';
 import GestionElecciones from './components/pages/GestionElecciones';
 import ResultadosTiempoReal from './components/pages/ResultadosTiempoReal';
 import AuditoriaSistema from './components/pages/AuditoriaSistema';
+import Registro from './components/pages/Registro';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/login" element={<IniciarSesion />} />
+          <Route path="/registro" element={<Registro />} />
           <Route path="/verificacion" element={<VerificacionIdentidad />} />
           <Route path="/boleta" element={<BoletaElectronica />} />
           <Route path="/confirmacion" element={<ConfirmacionVoto />} />
