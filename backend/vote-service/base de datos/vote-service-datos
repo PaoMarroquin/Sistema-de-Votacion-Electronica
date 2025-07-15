@@ -1,0 +1,33 @@
+CREATE DATABASE vote_service
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Spanish_Spain.1252'
+    LC_CTYPE = 'Spanish_Spain.1252'
+    LOCALE_PROVIDER = 'libc'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+-- Database: vote_service
+
+-- DROP DATABASE IF EXISTS vote_service;
+CREATE TABLE voto (
+  id UUID PRIMARY KEY,
+  user_id UUID NOT NULL,
+  eleccion_id UUID NOT NULL,
+  candidato_id UUID NOT NULL,
+  fecha_emision TIMESTAMP DEFAULT now(),
+  estado VARCHAR(20) DEFAULT 'VALIDO'
+);
+
+CREATE TABLE voto_respaldo (
+  voto_id UUID PRIMARY KEY,
+  minio_path TEXT,
+  hash TEXT,
+  fecha_respaldo TIMESTAMP DEFAULT now(),
+  FOREIGN KEY (voto_id) REFERENCES voto(id)
+);
+
+CREATE INDEX idx_user_eleccion ON voto(user_id, eleccion_id);
+CREATE INDEX idx_eleccion_candidato ON voto(eleccion_id, candidato_id);
