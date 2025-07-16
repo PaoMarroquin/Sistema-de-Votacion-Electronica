@@ -39,16 +39,27 @@ const FormularioEleccion = ({ onSubmit, initialData = {} }) => {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const file = e.target.files[0];
+  if (!file) return;
 
-    Papa.parse(file, {
-      header: true,
-      complete: (result) => {
-        setVotantes(result.data);
-      },
-    });
-  };
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete: (result) => {
+      const datosLimpios = result.data
+        .map((v) => ({
+          nombre: v.nombre?.trim(),
+          dni: v.dni?.trim() || '',
+          correo: v.correo?.trim(),         
+        }))
+        .filter((v) => v.nombre && v.correo.includes('@') && v.correo);
+
+      console.log("📥 Votantes procesados:", datosLimpios);
+      setVotantes(datosLimpios);
+    },
+  });
+};     
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
