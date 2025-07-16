@@ -1,0 +1,183 @@
+version: '3.8'
+
+networks:
+  voting-net:
+    driver: bridge
+
+services:
+  auth-service:
+    build: ./backend/auth-service
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://auth-db:5432/auth_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      # - REDIS_HOST=redis
+      # - REDIS_PORT=6379
+    depends_on:
+      - auth-db
+      #- redis
+    restart: always
+    networks:
+      - voting-net
+
+  vote-service:
+    build: ./backend/vote-service
+    container_name: vote-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://vote-db:5432/vote_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      # - REDIS_HOST=redis
+      # - REDIS_PORT=6379
+    depends_on:
+      - vote-db
+      #- redis
+    restart: always
+    networks:
+      - voting-net
+
+  election-service:
+    build: ./backend/election-service
+    container_name: election-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://election-db:5432/election_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - election-db
+    networks:
+      - voting-net
+
+  # backup-service:
+  #   build: ./backend/backup-service
+  #   container_name: backup-service
+  #   ports:
+  #     - "8084:8084"
+  #   environment:
+  #     - MINIO_ENDPOINT=http://minio:9000
+  #     - MINIO_ACCESS_KEY=minio
+  #     - MINIO_SECRET_KEY=minio123
+  #   #depends_on:
+  #     #- minio
+  #   networks:
+  #     - voting-net
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      # Agrega aquí variables de entorno específicas de tu API Gateway si las necesitas
+      # Por ejemplo, configuración de rutas, JWT, etc.
+      - GATEWAY_JWT_SECRET=your_gateway_secret
+    depends_on:
+      - auth-service
+      - vote-service
+      - election-service
+      #- backup-service
+    networks:
+      - voting-net
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:80"
+    # depends_on:
+      # - api-gateway
+    networks:
+      - voting-net
+
+  # Bases de datos y servicios de soporte
+  auth-db:
+    image: postgres:16
+    container_name: auth-db
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data
+    networks:
+      - voting-net
+
+  vote-db:
+    image: postgres:16
+    container_name: vote-db
+    environment:
+      POSTGRES_DB: vote_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - voting-db-data:/var/lib/postgresql/data
+    networks:
+      - voting-net
+
+  election-db:
+    image: postgres:16
+    container_name: election-db
+    environment:
+      POSTGRES_DB: election_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - election-db-data:/var/lib/postgresql/data
+    networks:
+      - voting-net
+
+  audit-db:
+    image: postgres:16
+    container_name: audit-db
+    environment:
+      POSTGRES_DB: audit_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5436:5432"
+    volumes:
+      - audit-db-data:/var/lib/postgresql/data
+    networks:
+      - voting-net
+
+  # redis:
+  #   image: redis:alpine
+  #   container_name: redis
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - voting-net
+
+  # minio:
+  #   image: minio/minio
+  #   container_name: minio
+  #   command: server /data
+  #   ports:
+  #     - "9000:9000"
+  #   environment:
+  #     MINIO_ACCESS_KEY: minio
+  #     MINIO_SECRET_KEY: minio123
+  #   volumes:
+  #     - minio-data:/data
+  #   networks:
+  #     - voting-net
+
+volumes:
+  auth-db-data:
+  voting-db-data:
+  election-db-data:
+  audit-db-data:
+  minio-data:

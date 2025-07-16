@@ -33,4 +33,52 @@ public class Voto {
     private String estado;
 
     // Getters y setters
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
+    public UUID getEleccionId() {
+        return eleccionId;
+    }
+
+    public void setEleccionId(UUID eleccionId) {
+        this.eleccionId = eleccionId;
+    }
+
+    public UUID getCandidatoId() {
+        return candidatoId;
+    }
+
+    public void setCandidatoId(UUID candidatoId) {
+        this.candidatoId = candidatoId;
+    }
+
+    public LocalDateTime getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public void setFechaEmision(LocalDateTime fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }
