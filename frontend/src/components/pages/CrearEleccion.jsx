@@ -11,6 +11,7 @@ const CrearEleccion = () => {
     const nuevaEleccion = {
       ...formData,
       id: Date.now().toString(),
+      estado: formData.estado || 'borrador',
     };
     elecciones.push(nuevaEleccion);
     localStorage.setItem('elecciones', JSON.stringify(elecciones));

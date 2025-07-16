@@ -139,12 +139,13 @@ const FormularioEleccion = ({ onSubmit, initialData = {} }) => {
 
       {initialData && Object.keys(initialData).length > 0 && (
         <div>
-          <h2 className="text-xl font-bold">⚙️ Estado de la elección</h2>
+          <h2 className="text-xl font-bold">⚙️ Estado de la elección</h2>         
           <select value={estado} onChange={(e) => setEstado(e.target.value)} className="input-field">
-            <option value="Borrador">Borrador</option>
-            <option value="Activa">Activa</option>
-            <option value="Cerrada">Cerrada</option>
+            <option value="borrador">Borrador</option>
+            <option value="activa">Activa</option>
+            <option value="cerrada">Cerrada</option>
           </select>
+
         </div>
       )}
 

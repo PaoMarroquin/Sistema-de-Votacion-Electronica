@@ -15,13 +15,7 @@ const PanelAdministrador = () => {
       icon: "📊",
       titulo: "Resultados en Tiempo Real",
       descripcion: "Monitorea los votos al instante."
-    },
-    {
-      to: "/admin/auditoria",
-      icon: "📁",
-      titulo: "Auditoría del Sistema",
-      descripcion: "Revisa los registros de actividad del sistema."
-    }
+    },    
   ];
 
   return (
