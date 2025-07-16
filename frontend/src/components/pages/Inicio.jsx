@@ -14,7 +14,7 @@ const Inicio = () => {
 
   const handleParticipar = (id) => {
     localStorage.setItem('eleccionActiva', id);
-    navigate('/verificacion'); // ← o la ruta que corresponda
+    navigate('/verificacion'); 
   };
 
   return (

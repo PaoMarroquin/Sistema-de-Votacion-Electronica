@@ -7,9 +7,8 @@ const CrearEleccion = () => {
   const navigate = useNavigate();
 
   const generarToken = () => {
-    return Math.random().toString(36).substring(2, 12); // 10 caracteres aleatorios
+    return Math.random().toString(36).substring(2, 12); 
   };
-
   const enviarCorreo = (votante, eleccionTitulo, token) => {
   const templateParams = {
     to_name: votante.nombre,
@@ -17,7 +16,6 @@ const CrearEleccion = () => {
     token: token,
     titulo: eleccionTitulo,
   };
-
   emailjs
     .send(
       'service_7nv0qbs',     

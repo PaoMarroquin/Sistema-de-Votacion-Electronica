@@ -13,40 +13,39 @@ const Registro = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError('');
+
+    const usuarioNormalizado = usuario.trim().toLowerCase();
 
     if (password !== confirmarPassword) {
       setError('Las contraseñas no coinciden');
       return;
     }
-
     if (password.length < 6) {
       setError('La contraseña debe tener al menos 6 caracteres');
       return;
-    }
-    // Obtener usuarios existentes del localStorage
-    const usuariosGuardados = JSON.parse(localStorage.getItem('usuariosMock')) || [];
-    // Verificar si el nombre de usuario ya existe
-    const existe = usuariosGuardados.find((u) => u.usuario === usuario);
+    }    
+    const adminsGuardados = JSON.parse(localStorage.getItem('usuariosAdmin')) || [];
+    const existe = adminsGuardados.find((u) => u.usuario === usuarioNormalizado);
     if (existe) {
-      setError('El nombre de usuario ya está en uso');
+      setError('El nombre de usuario ya está en uso por otro administrador');
       return;
     }
-    // Agregar nuevo usuario
-    const nuevoUsuario = {
-      nombre,
-      correo,
-      usuario,
+    const nuevoAdmin = {
+      nombre: nombre.trim(),
+      correo: correo.trim(),
+      usuario: usuarioNormalizado,
       password,
+      rol: 'admin',
     };
-    usuariosGuardados.push(nuevoUsuario);
-    localStorage.setItem('usuariosMock', JSON.stringify(usuariosGuardados));
-    // Redirigir al login
-    navigate('/login');
+    adminsGuardados.push(nuevoAdmin);
+    localStorage.setItem('usuariosAdmin', JSON.stringify(adminsGuardados));
+    navigate('/login'); 
   };
 
   return (
     <div className="page-container">
-      <h2 className="page-title">Registro de Usuario</h2>
+      <h2 className="page-title">Registro de Administrador</h2>
       {error && <Alerta mensaje={error} />}
       <form onSubmit={handleSubmit} className="form-box">
         <input
@@ -59,7 +58,7 @@ const Registro = () => {
         />
         <input
           type="email"
-          placeholder="Correo institucional"
+          placeholder="Correo"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
           required
@@ -90,11 +89,11 @@ const Registro = () => {
           className="input-field"
         />
         <button type="submit" className="primary-button">
-          Registrarse
+          Registrar administrador
         </button>
 
         <p style={{ textAlign: 'center', marginTop: '1rem' }}>
-          ¿Ya tienes una cuenta? <Link to="/login">Inicia sesión</Link>
+          ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
         </p>
       </form>
     </div>

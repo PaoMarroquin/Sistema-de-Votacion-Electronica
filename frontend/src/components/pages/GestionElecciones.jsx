@@ -20,7 +20,7 @@ const GestionElecciones = () => {
         : eleccion
     );
     setElecciones(actualizadas);
-    localStorage.setItem('elecciones', JSON.stringify(actualizadas)); // ← persistir cambios
+    localStorage.setItem('elecciones', JSON.stringify(actualizadas)); 
   };
 
   return (
@@ -36,7 +36,7 @@ const GestionElecciones = () => {
       <div className="card-grid">
         {elecciones.map((eleccion) => (
           <div key={eleccion.id} className="card">
-            <h3>{eleccion.titulo}</h3> {/* ← asegúrate de que sea "titulo" */}
+            <h3>{eleccion.titulo}</h3> {}
             <p>
               📅 {eleccion.fechaInicio} a {eleccion.fechaCierre}
             </p>

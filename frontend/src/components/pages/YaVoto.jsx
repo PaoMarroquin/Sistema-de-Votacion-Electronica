@@ -5,14 +5,13 @@ const YaVoto = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Verificamos si realmente hay un DNI y un votante que haya votado
+   
     const dni = localStorage.getItem('dni');
     const eleccion = JSON.parse(localStorage.getItem('eleccionActual'));
 
     const votante = eleccion?.votantes?.find((v) => v.dni === dni);
 
-    if (!votante || !votante.votoEmitido) {
-      // Si no hay evidencia de voto, redirigimos al inicio
+    if (!votante || !votante.votoEmitido) {    
       navigate('/');
       return;
     }

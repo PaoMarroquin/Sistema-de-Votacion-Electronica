@@ -32,16 +32,10 @@ const ConfirmacionVoto = () => {
       return e;
     });
 
-    // Guardar elecciones actualizadas
     localStorage.setItem('elecciones', JSON.stringify(eleccionesActualizadas));
-
-    // 🔄 Actualizar también la versión actual de la elección
     const nuevaEleccionActualizada = eleccionesActualizadas.find(e => e.id === eleccionActual.id);
     localStorage.setItem('eleccionActual', JSON.stringify(nuevaEleccionActualizada));
-
-    // Limpiar selecciones del localStorage si deseas
     localStorage.removeItem('selecciones');
-
     navigate('/ya-voto');
   };
 

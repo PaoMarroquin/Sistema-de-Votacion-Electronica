@@ -53,7 +53,7 @@ const FormularioEleccion = ({ onSubmit, initialData = {} }) => {
           correo: v.correo?.trim(),
         }))
         .filter((v) => v.nombre && v.dni && v.correo?.includes('@'));
-      console.log("📥 Votantes procesados:", datosLimpios);
+      console.log("Votantes procesados:", datosLimpios);
       setVotantes(datosLimpios);  
     },
   });

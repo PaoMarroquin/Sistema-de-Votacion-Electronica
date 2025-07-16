@@ -43,8 +43,7 @@ const VerificacionIdentidad = () => {
       setError('❌ DNI o token incorrectos.');
       return;
     }
-
-    // Guardar información del votante y la elección actual para usar en otras vistas
+    
     localStorage.setItem('votanteActual', JSON.stringify(votanteAutenticado));
     localStorage.setItem('eleccionActual', JSON.stringify(eleccionAsociada));
     localStorage.setItem('dni', dni); 

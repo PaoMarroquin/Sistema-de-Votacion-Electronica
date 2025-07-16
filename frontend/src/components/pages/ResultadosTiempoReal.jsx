@@ -4,7 +4,6 @@ const ResultadosTiempoReal = () => {
   const [eleccionesActivas, setEleccionesActivas] = useState([]);
   const [tiemposRestantes, setTiemposRestantes] = useState({});
 
-  // 🔁 Actualizar elecciones cada 2 segundos
   useEffect(() => {
     const interval = setInterval(() => {
       const elecciones = JSON.parse(localStorage.getItem('elecciones')) || [];
@@ -23,7 +22,7 @@ const ResultadosTiempoReal = () => {
       });
 
       setTiemposRestantes(nuevosTiempos);
-    }, 2000); // ⏱️ Cada 2 segundos
+    }, 2000); 
 
     return () => clearInterval(interval);
   }, []);
