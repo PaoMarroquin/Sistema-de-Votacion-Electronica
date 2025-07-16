@@ -47,15 +47,14 @@ const FormularioEleccion = ({ onSubmit, initialData = {} }) => {
     skipEmptyLines: true,
     complete: (result) => {
       const datosLimpios = result.data
-        .map((v) => ({
+            .map((v) => ({
           nombre: v.nombre?.trim(),
           dni: v.dni?.trim() || '',
-          correo: v.correo?.trim(),         
+          correo: v.correo?.trim(),
         }))
-        .filter((v) => v.nombre && v.correo.includes('@') && v.correo);
-
+        .filter((v) => v.nombre && v.dni && v.correo?.includes('@'));
       console.log("📥 Votantes procesados:", datosLimpios);
-      setVotantes(datosLimpios);
+      setVotantes(datosLimpios);  
     },
   });
 };     

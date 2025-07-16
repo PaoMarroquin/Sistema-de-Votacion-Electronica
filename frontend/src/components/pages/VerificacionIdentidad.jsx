@@ -13,19 +13,43 @@ const VerificacionIdentidad = () => {
     e.preventDefault();
 
     if (intentos >= 3) {
-      setError('Acceso bloqueado temporalmente.');
+      setError('⚠️ Acceso bloqueado temporalmente por demasiados intentos fallidos.');
       return;
     }
 
-    // Simulación de verificación de usuario
-    const accesoPermitido = dni === '12345678' && token === 'ABC123';
-    const yaVoto = localStorage.getItem('yaVoto');
+    const elecciones = JSON.parse(localStorage.getItem('elecciones')) || [];
+
+    let accesoPermitido = false;
+    let yaVoto = false;
+    let votanteAutenticado = null;
+    let eleccionAsociada = null;
+
+    for (const eleccion of elecciones) {
+      const votante = eleccion.votantes.find(
+        (v) => v.dni === dni && v.token === token
+      );
+
+      if (votante) {
+        accesoPermitido = true;
+        yaVoto = votante.votoEmitido;
+        votanteAutenticado = votante;
+        eleccionAsociada = eleccion;
+        break;
+      }
+    }
 
     if (!accesoPermitido) {
-      const nuevosIntentos = intentos + 1;
-      setIntentos(nuevosIntentos);
-      setError('Datos incorrectos.');
-    } else if (yaVoto === 'true') {
+      setIntentos(intentos + 1);
+      setError('❌ DNI o token incorrectos.');
+      return;
+    }
+
+    // Guardar información del votante y la elección actual para usar en otras vistas
+    localStorage.setItem('votanteActual', JSON.stringify(votanteAutenticado));
+    localStorage.setItem('eleccionActual', JSON.stringify(eleccionAsociada));
+    localStorage.setItem('dni', dni); 
+
+    if (yaVoto) {
       navigate('/ya-voto');
     } else {
       navigate('/boleta');
@@ -33,29 +57,31 @@ const VerificacionIdentidad = () => {
   };
 
   return (
-  <div className="page-container">
-    <h2 className="page-title">Verificación de Identidad</h2>
-    {error && <Alerta mensaje={error} />}
-    <form onSubmit={handleVerificar} className="form-box">
-      <input
-        type="text"
-        placeholder="DNI"
-        value={dni}
-        onChange={(e) => setDni(e.target.value)}
-        required
-        className="input-field"
-      />
-      <input
-        type="text"
-        placeholder="Token recibido por correo"
-        value={token}
-        onChange={(e) => setToken(e.target.value)}
-        required
-        className="input-field"
-      />
-      <button type="submit" className="primary-button">Validar</button>
-    </form>
-  </div>
+    <div className="page-container">
+      <h2 className="page-title">Verificación de Identidad</h2>
+
+      {error && <Alerta mensaje={error} />}
+
+      <form onSubmit={handleVerificar} className="form-box">
+        <input
+          type="text"
+          placeholder="DNI"
+          value={dni}
+          onChange={(e) => setDni(e.target.value)}
+          required
+          className="input-field"
+        />
+        <input
+          type="text"
+          placeholder="Token recibido por correo"
+          value={token}
+          onChange={(e) => setToken(e.target.value)}
+          required
+          className="input-field"
+        />
+        <button type="submit" className="primary-button">Validar</button>
+      </form>
+    </div>
   );
 };
 
