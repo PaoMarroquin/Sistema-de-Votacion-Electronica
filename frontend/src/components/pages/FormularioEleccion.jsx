@@ -161,7 +161,6 @@ const FormularioEleccion = ({ onSubmit, initialData = {} }) => {
 
       <h2 className="text-xl font-bold">👥 Votantes Autorizados</h2>
       <input type="file" accept=".csv,.xlsx" onChange={handleFileChange} className="input-field" />
-      <p className="text-sm text-gray-500">Archivo con columnas: <strong>nombre</strong>, <strong>correo</strong></p>
 
       <button type="submit" className="primary-button">
         Guardar elección

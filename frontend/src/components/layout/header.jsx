@@ -22,6 +22,8 @@ const Header = () => {
             <Link to="/login">Iniciar Sesión Admin</Link>
           ) : (
             <>              
+              <Link to="/admin/elecciones">Gestionar Elecciones</Link>
+              <Link to="/admin/resultados">Resultados</Link>
               <button onClick={cerrarSesion} className="logout-button">Cerrar sesión</button>
             </>
           )}
