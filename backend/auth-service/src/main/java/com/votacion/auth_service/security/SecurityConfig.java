@@ -37,14 +37,17 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                     .requestMatchers("/auth", "/auth/").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/auth/register-csv").hasAuthority("ROLE_ADMIN")
-                    .requestMatchers(HttpMethod.POST, "/auth/register").hasAuthority("ROLE_ADMIN")
-                    .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/votar").permitAll()
 
-                   // .requestMatchers("/auth/users").hasAuthority("ROLE_ADMIN")
-                   // .requestMatchers("/auth/register").hasAuthority("ROLE_ADMIN")
+                    //.requestMatchers(HttpMethod.POST, "/auth/register").hasAuthority("ROLE_ADMIN")
+                    //.requestMatchers(HttpMethod.POST, "/auth/register-csv").hasAuthority("ROLE_ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/register-csv").permitAll()       
+                    // .requestMatchers("/auth/users").hasAuthority("ROLE_ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/auth/users/admins", "/auth/users/votantes").permitAll()  
+                    // .requestMatchers("/auth/register").hasAuthority("ROLE_ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/auth/send-code-test", "/auth/send-codes-test").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/auth/send-codes").permitAll()
                     .anyRequest().authenticated()
                 )
 

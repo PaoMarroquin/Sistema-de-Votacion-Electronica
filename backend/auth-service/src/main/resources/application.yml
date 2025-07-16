@@ -22,7 +22,23 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: user@gmail.com    # Cambia esto por un correo real
+    password: tu-contraseña-o-clave-de-aplicación   # Cambia esto por la contraseña real o clave de aplicación
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   #redis:
    # host: redis

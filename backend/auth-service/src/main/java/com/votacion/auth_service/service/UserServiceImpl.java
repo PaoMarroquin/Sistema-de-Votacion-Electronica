@@ -34,7 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.save(user);
     }
 
@@ -52,6 +54,15 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public List<User> getUsersByRole(String roleName) {
+    Role role = roleRepository.findByName(roleName);
+        if (role == null) {
+            throw new RuntimeException("Rol no encontrado: " + roleName);
+        }
+        return userRepository.findAllByRolesContaining(role);
+    }
+
 
     @Override
     public void disableUser(Long id) {

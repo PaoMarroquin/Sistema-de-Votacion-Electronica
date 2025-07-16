@@ -1,9 +1,11 @@
 package com.votacion.auth_service.repository;
 
+import com.votacion.auth_service.model.Role;
 import com.votacion.auth_service.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 // Esta interfaz extiende JpaRepository para proporcionar métodos CRUD básicos
@@ -24,4 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
 
     boolean existsByDni(String dni);
+
+    List<User> findAllByRolesContaining(Role role);
+
 }

@@ -25,9 +25,10 @@ public class JwtFilter extends OncePerRequestFilter {
     private final CustomUserDetailsService userDetailsService;
 
     // Ignorar rutas públicas
+    // 
     private static final List<String> EXCLUDED_PATHS = List.of(
-        "/auth/login", "/auth/register", "/auth", "/auth/"
-    );
+        "/auth/login", "/auth", "/auth/"
+    ); // "/auth/register",
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
@@ -53,6 +54,9 @@ public class JwtFilter extends OncePerRequestFilter {
         final String token = authHeader.substring(7);
         final String username = jwtService.extractUsername(token);
         log.info("👤 Usuario extraído del token: {}", username);
+
+        log.info("🔐 Roles extraídos del token: {}", jwtService.extractRoles(token));
+
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);

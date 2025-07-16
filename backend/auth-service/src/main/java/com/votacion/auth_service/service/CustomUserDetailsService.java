@@ -3,6 +3,8 @@ package com.votacion.auth_service.service;
 import com.votacion.auth_service.model.User;
 import com.votacion.auth_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
 
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -30,6 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         var authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
+        log.info("🔐 Granted authorities cargadas: {}", authorities);
+
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),  // puede usar también user.getDni()

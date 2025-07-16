@@ -34,7 +34,7 @@ public class StartupDataLoader {
         if (roleRepository.findByName(roleName) == null) {
             Role role = new Role(roleName);
             roleRepository.save(role);
-            System.out.println("Rol creado: " + roleName);
+            System.out.println("✅ Rol creado: " + roleName);
         }
     }
 
@@ -49,11 +49,11 @@ public class StartupDataLoader {
                     "Administrador",
                     adminEmail,
                     passwordEncoder.encode("admin123"),
-                    "000000000"
+                    "00000000"
             );
             admin.setRoles(roles);
             userRepository.save(admin);
-            System.out.println("Usuario admin creado: " + adminEmail);
+            System.out.println("✅ Usuario admin creado: " + adminEmail);
         }
     }
 }

@@ -17,6 +17,8 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    List<User> getUsersByRole(String roleName);
+
     Boolean hasVoted(Long userId);
 
     void disableUser(Long id);
